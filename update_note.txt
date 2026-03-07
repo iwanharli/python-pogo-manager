@@ -1,0 +1,348 @@
+# Scoring Pokémon GO — SQL-aligned (mengacu ke 001_init.sql, 002_scoring.sql, 003_pokemon_scoring.sql)
+
+Dokumen ini merapikan rencana **penilaian Pokémon yang kompleks** dan menyesuaikannya dengan tabel/kolom yang **sudah ada** di schema kamu.
+
+---
+
+## 1) Yang SUDAH ada di schema kamu (jadi jangan bikin ulang)
+
+### A. Layer PokéAPI (main-series)
+
+* `pokedex_species` (species + names/genera/flavor_texts/evolution_chain)
+* `pokedex_pokemon` (pokemon + types/stats/abilities/sprites)
+* `pokedex_move` dan `pokedex_pokemon_move`
+
+> Ini bagus untuk “Pokedex pokok” (nama/species/evolusi). Tapi **stats & move meta-nya bukan GO**.
+
+### B. Layer Pokémon GO (dari PokeMiners/pokemon-go-api)
+
+* `pogo_pokemon`
+
+  * kolom penting: `go_id`, `form_id`, `dex_nr`, `generation`, `primary_type`, `secondary_type`, `pokemon_class`
+  * JSON penting: `stats` (attack/defense/stamina), `names`, `assets`, `data`
+* `pogo_move`
+
+  * kolom penting: `move_id`, `type`, `power`, `energy`, `duration_ms`, `combat`, `names`, `data`
+* `pogo_pokemon_move` (pivot absolut fast/charged + elite)
+
+  * `move_kind IN ('quick','cinematic','elite_quick','elite_cinematic')`
+* `pogo_type`
+
+  * sudah menyimpan “type chart” versi GO (`double_damage_from`, `half_damage_from`, `no_damage_from`) + `weather_boost`
+* `pogo_cpm` (CPM per level)
+
+### C. Mapping main-series ↔ GO
+
+* `pokedex_pokemon_go_map`
+
+  * saat ini **1–1** (unique di `pokedex_pokemon_id` dan `pogo_pokemon_id`)
+
+### D. User data
+
+* `users`
+* `user_pokemon`
+
+  * saat ini `pokedex_pokemon_id` **NOT NULL**
+  * sudah ada `cp`, `level`, `iv_attack/iv_defense/iv_stamina`, `extra JSONB`
+
+### E. Scoring move (sudah benar arahnya)
+
+* `pogo_scoring_profile` (002_scoring.sql)
+
+  * **hanya untuk move** dan `context` dibatasi: `pve_fast/pve_charged/pvp_fast/pvp_charged`
+  * `weights` + `normalizer`
+* `pogo_scoring_move` (002_scoring.sql)
+
+  * skor per `profile_id + move_id` + `metrics` breakdown
+
+### F. Scoring pokemon (masih minimal)
+
+* `pogo_scoring_pokemon` (003_pokemon_scoring.sql)
+
+  * `(pokemon_id, context)` PK, `raw_score`, `score_0_100`, `metrics`
+
+---
+
+## 2) Kenapa scoring Pokémon perlu tabel tambahan (yang kompleks & “bagus”)
+
+Kalau hanya pakai `pogo_scoring_pokemon(context)` hasilnya cepat, tapi kurang:
+
+1. **Tidak ada profile/versioning** untuk Pokémon (seperti move scoring).
+2. Tidak ada tabel khusus untuk **moveset recommendation** (fast + charged1 + charged2) yang jadi dasar skor Pokémon.
+3. PvP butuh data ekstra: **IV rank**, stat product, CP cap league.
+4. `user_pokemon` refer ke `pokedex_pokemon` saja → untuk GO forms (shadow/costume/…) kamu akan kesulitan join ke `pogo_pokemon` secara presisi.
+
+---
+
+## 3) UPDATE yang disarankan pada schema (DDL perubahan/penambahan)
+
+### 3.1) Tambah: `pogo_scoring_pokemon_profile` (versi Pokémon dari profile)
+
+**Kenapa:** supaya scoring Pokémon punya `weights + normalizer + version` seperti move.
+
+Kolom inti yang disarankan:
+
+* `id BIGSERIAL PK`
+* `name` (mis: `pokemon_v1`)
+* `context` (mis: `pve_raid`, `pve_gym_def`, `pvp_great`, `pvp_ultra`, `pvp_master`)
+* `version` (mis: `v1`)
+* `weights JSONB` (bobot gabungan stat + typing + moveset + elite penalty + pvp iv)
+* `normalizer JSONB` (min/max raw, atau percentile)
+* `notes`, `is_active`, timestamps
+
+> Ini tidak mengganggu `pogo_scoring_profile` (move) karena constraint context-nya beda.
+
+### 3.2) Ubah: `pogo_scoring_pokemon` agar profile-based (RECOMMENDED)
+
+Sekarang: PK `(pokemon_id, context)`.
+
+**Recommended:** ganti jadi:
+
+* `profile_id BIGINT FK -> pogo_scoring_pokemon_profile(id)`
+* `pokemon_id BIGINT FK -> pogo_pokemon(id)`
+* PK `(profile_id, pokemon_id)`
+* `raw_score`, `score_0_100`, `metrics`, timestamps
+
+Kalau kamu tidak mau “breaking change”, opsi aman:
+
+* rename tabel lama jadi `pogo_scoring_pokemon_legacy`
+* buat `pogo_scoring_pokemon` baru (profile-based)
+
+### 3.3) Tambah: `pogo_scoring_moveset`
+
+**Kenapa:** UI butuh “Move Recommendation” per Pokémon, bukan hanya angka.
+
+Kolom yang disarankan:
+
+* `profile_id` (pakai `pogo_scoring_pokemon_profile`, karena moveset terbaik tergantung konteks)
+* `pokemon_id` (FK `pogo_pokemon`)
+* `fast_move_id` (FK `pogo_move`)
+* `charged_move_id_1` (FK)
+* `charged_move_id_2` (FK, nullable untuk PvE bila hanya 1 charged)
+* `rank INT` (1..N)
+* `raw_score`, `score_0_100`
+* `metrics JSONB` (breakdown: fast_score, charged_score, coverage, bait, elite flags, dll)
+* `is_elite BOOLEAN` (true jika ada elite move)
+* `computed_at`
+
+Index penting:
+
+* `(profile_id, pokemon_id, rank)`
+* `(pokemon_id)`
+
+### 3.4) Tambah: `pogo_pvp_iv_rank` (untuk Great/Ultra)
+
+**Kenapa:** PvP “bagus” biasanya bukan ATK tinggi; tapi **stat product** (bulk) + cap.
+
+Kolom yang disarankan:
+
+* `pokemon_id` (FK `pogo_pokemon`)
+* `league` (`great`, `ultra`)
+* `cap_cp INT` (1500/2500)
+* `rank INT`
+* `level NUMERIC(4,1)`
+* `iv_attack/iv_defense/iv_stamina INT2`
+* `cp INT`
+* `atk_eff/def_eff/sta_eff NUMERIC` (hasil stats setelah CPM)
+* `stat_product NUMERIC`
+* `computed_at`
+
+Index:
+
+* `(pokemon_id, league, rank)`
+
+### 3.5) Ubah: `user_pokemon` supaya bisa “nempel” ke GO form
+
+Saat ini `user_pokemon.pokedex_pokemon_id` wajib.
+
+**Saran perubahan minimal tapi powerful:**
+
+* tambah kolom `pogo_pokemon_id BIGINT NULL REFERENCES pogo_pokemon(id)`
+* tambah index `ix_user_pokemon_pogo_pokemon_id`
+
+Lalu aturan aplikasinya:
+
+* Kalau user input dari Pokémon GO → simpan `pogo_pokemon_id` (paling akurat)
+* `pokedex_pokemon_id` tetap dipakai untuk label/keluarga evolusi (bisa map by `dex_nr` / species)
+
+> Jika kamu ingin benar-benar rapi untuk GO-only, langkah lanjut: bikin tabel terpisah `user_pogo_pokemon` dan jadikan `user_pokemon` khusus main-series. Tapi untuk sekarang, tambah `pogo_pokemon_id` sudah cukup.
+
+### 3.6) Evaluasi ulang: constraint 1–1 di `pokedex_pokemon_go_map`
+
+Sekarang mapping 1–1 bisa terlalu ketat kalau nanti:
+
+* 1 species main-series punya banyak GO forms (shadow/costume) yang tidak punya padanan PokéAPI form
+
+Jika kamu sering mentok mapping, pertimbangkan:
+
+* hapus constraint `uq_map_pokedex` atau `uq_map_pogo` (ubah jadi 1–many),
+* atau **jangan pakai map** untuk user input: pakai `user_pokemon.pogo_pokemon_id` langsung.
+
+---
+
+## 4) Pipeline Seeder/Compute (Python) — sesuai tabel yang ada
+
+Urutan ideal (supaya tidak berantakan):
+
+### Step A — Seed data GO (PokeMiners → DB)
+
+Target tabel:
+
+* `pogo_pokemon`
+* `pogo_move`
+* `pogo_pokemon_move`
+* `pogo_type`
+* `pogo_cpm`
+
+Catatan:
+
+* Simpan raw lengkap ke kolom `data`/`assets` biar kamu aman kalau Niantic update format.
+
+### Step B — Seed move scoring (yang sudah kamu implement)
+
+Target tabel:
+
+* `pogo_scoring_profile` (4 profile default)
+* `pogo_scoring_move`
+
+Pastikan `metrics` menyimpan:
+
+* `kinds[]`, `usage_count`, `elite_only`
+* breakdown angka (dps/eps/dpe/dpt/ept/cost_factor)
+
+### Step C — Compute “Move Recommendation” (inti fitur)
+
+Input:
+
+* move pool dari `pogo_pokemon_move`
+* skor move dari `pogo_scoring_move`
+
+Output:
+
+* `pogo_scoring_moveset` (top N per pokemon per profile)
+
+Logika umum:
+
+* Ambil fast pool: `move_kind in ('quick','elite_quick')`
+* Ambil charged pool: `move_kind in ('cinematic','elite_cinematic')`
+* Bentuk kombinasi:
+
+  * PvE: (fast, charged1) → pilih max
+  * PvP: (fast, charged1, charged2) → pilih max (charged2 boleh berbeda)
+* Scoring moveset **bukan sekadar rata-rata**:
+
+  * PvE biasanya “cycle DPS” lebih realistis
+  * PvP butuh bait/coverage/cost synergy
+
+### Step D — Compute skor Pokémon (overall)
+
+Input:
+
+* base stats dari `pogo_pokemon.stats`
+* typing dari `primary_type/secondary_type`
+* type chart dari `pogo_type`
+* moveset terbaik dari `pogo_scoring_moveset`
+* PvP IV rank dari `pogo_pvp_iv_rank` (jika ada)
+
+Output:
+
+* `pogo_scoring_pokemon` (profile-based)
+
+---
+
+## 5) Rumus yang disarankan (lebih “kompleks” tapi masih manageable)
+
+> Ini bukan satu-satunya cara, tapi struktur ini bikin hasil stabil, mudah dijelaskan di UI, dan mudah di-tuning via `weights`.
+
+### 5.1) Komponen skor Pokémon (raw)
+
+`raw_total = w_moveset * S_moveset + w_stats * S_stats + w_typing * S_typing + w_pvp_iv * S_iv + w_elite * S_elite`
+
+Semua komponen `S_*` sebaiknya sudah dinormalisasi 0..1 sebelum digabung.
+
+#### A) `S_moveset`
+
+Ambil dari **rank #1** di `pogo_scoring_moveset` untuk profile tsb.
+
+* PvE raid: gunakan `cycle_dps` / `ttk_proxy`
+* PvP: gunakan `pressure + energy + coverage` proxy
+
+#### B) `S_stats`
+
+Dari `pogo_pokemon.stats`:
+
+* PvE raid cenderung: ATK lebih berat
+* PvP: DEF+STA lebih berat
+
+Contoh:
+
+* PvE raid: `S_stats = norm( atk^a * def^b * sta^c )` dengan a> b,c
+* PvP: `S_stats = norm( def^b * sta^c )` atau langsung dari stat product best IV
+
+#### C) `S_typing`
+
+Gunakan `pogo_type` untuk hitung **defensive profile**:
+
+* jumlah resist/weak (double/half/no)
+* beri bobot lebih untuk resist umum (mis: dragon/fairy/steel sering relevan)
+
+Sederhana dulu:
+
+* `S_typing = norm( +R - W )`
+
+  * R = count half_damage_from + 2*count no_damage_from
+  * W = count double_damage_from
+
+#### D) `S_iv` (khusus Great/Ultra)
+
+Ambil `rank 1 stat_product` dari `pogo_pvp_iv_rank` lalu normalize.
+
+#### E) `S_elite`
+
+Bukan menghukum “elite_only move” secara mutlak.
+Saran:
+
+* kalau moveset #1 butuh elite → kurangi sedikit (biar “aksesibilitas” masuk skor)
+* tapi kalau user punya move-nya, UI bisa override dengan skor “owned”.
+
+---
+
+## 6) Kenapa `min_raw` bisa 0 (dan kapan itu OK)
+
+Di `pogo_scoring_profile.normalizer` kamu memang bisa melihat `min_raw: 0.0`.
+Itu **normal** kalau:
+
+* ada move yang power/energy/duration menghasilkan raw 0 (contoh move tidak relevan / data kosong / guard)
+* kamu memasukkan semua move termasuk yang “dummy” atau edge case
+
+Kalau kamu merasa terlalu banyak yang nempel di 0:
+
+* pakai percentile normalizer (p1..p99) di `normalizer`
+* atau filter move “non-usable” sebelum normalisasi
+
+---
+
+## 7) Rekomendasi Next Implement (yang paling terasa di UI)
+
+1. Buat tabel `pogo_scoring_moveset` + seeder-nya → langsung keluar fitur “Move Recommendation”.
+2. Tambah `pogo_scoring_pokemon_profile` + refactor `pogo_scoring_pokemon` jadi profile-based → skor Pokémon jadi versioned.
+3. Tambah `pogo_pvp_iv_rank` (Great/Ultra) → PvP rating jadi “masuk akal”.
+4. Tambah `user_pokemon.pogo_pokemon_id` → user entry jadi presisi form.
+
+---
+
+## 8) Checklist perubahan SQL (ringkas)
+
+**Add tables:**
+
+* `pogo_scoring_pokemon_profile`
+* `pogo_scoring_moveset`
+* `pogo_pvp_iv_rank`
+
+**Alter tables:**
+
+* `user_pokemon` tambah `pogo_pokemon_id`
+
+**Refactor (recommended):**
+
+* `pogo_scoring_pokemon` jadi profile-based (atau bikin tabel baru dan legacy-kan yang lama)

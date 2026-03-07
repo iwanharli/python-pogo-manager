@@ -1,0 +1,370 @@
+2026-02-27 07:49:32  INFO      ============================================================
+2026-02-27 07:49:32  INFO        GameMaster CPM → db_pogo_manager Seeder
+2026-02-27 07:49:32  INFO        Mode: reset | DB: db_pogo_manager@localhost:5432
+2026-02-27 07:49:32  INFO        Log file: logs/seed_cpm.log
+2026-02-27 07:49:32  INFO      ============================================================
+2026-02-27 07:49:32  INFO      
+📋 Fetching GameMaster...
+2026-02-27 07:49:32  INFO        ↓ https://raw.githubusercontent.com/PokeMiners/game_masters/master/latest/latest.json
+2026-02-27 07:49:35  INFO        ✔ GameMaster downloaded (18289 templates)
+2026-02-27 07:49:35  INFO      
+🔢 Extracting CPM values...
+2026-02-27 07:49:35  INFO        ℹ Found 80 CPM values in GameMaster
+2026-02-27 07:49:35  WARNING     ⚠ Obfuscation detected starting at level 28.0 (CPM=0.8653)
+2026-02-27 07:49:35  DEBUG       Level 1.0: using GM CPM 0.094
+2026-02-27 07:49:35  DEBUG       Level 1.5: using GM CPM 0.16639787
+2026-02-27 07:49:35  DEBUG       Level 2.0: using GM CPM 0.21573247
+2026-02-27 07:49:35  DEBUG       Level 2.5: using GM CPM 0.25572005
+2026-02-27 07:49:35  DEBUG       Level 3.0: using GM CPM 0.29024988
+2026-02-27 07:49:35  DEBUG       Level 3.5: using GM CPM 0.3210876
+2026-02-27 07:49:35  DEBUG       Level 4.0: using GM CPM 0.34921268
+2026-02-27 07:49:35  DEBUG       Level 4.5: using GM CPM 0.3752356
+2026-02-27 07:49:35  DEBUG       Level 5.0: using GM CPM 0.39956728
+2026-02-27 07:49:35  DEBUG       Level 5.5: using GM CPM 0.4225
+2026-02-27 07:49:35  DEBUG       Level 6.0: using GM CPM 0.44310755
+2026-02-27 07:49:35  DEBUG       Level 6.5: using GM CPM 0.4627984
+2026-02-27 07:49:35  DEBUG       Level 7.0: using GM CPM 0.48168495
+2026-02-27 07:49:35  DEBUG       Level 7.5: using GM CPM 0.49985844
+2026-02-27 07:49:35  DEBUG       Level 8.0: using GM CPM 0.51739395
+2026-02-27 07:49:35  DEBUG       Level 8.5: using GM CPM 0.5343543
+2026-02-27 07:49:35  DEBUG       Level 9.0: using GM CPM 0.5507927
+2026-02-27 07:49:35  DEBUG       Level 9.5: using GM CPM 0.5667545
+2026-02-27 07:49:35  DEBUG       Level 10.0: using GM CPM 0.5822789
+2026-02-27 07:49:35  DEBUG       Level 10.5: using GM CPM 0.5974
+2026-02-27 07:49:35  DEBUG       Level 11.0: using GM CPM 0.6121573
+2026-02-27 07:49:35  DEBUG       Level 11.5: using GM CPM 0.6265671
+2026-02-27 07:49:35  DEBUG       Level 12.0: using GM CPM 0.64065295
+2026-02-27 07:49:35  DEBUG       Level 12.5: using GM CPM 0.65443563
+2026-02-27 07:49:35  DEBUG       Level 13.0: using GM CPM 0.667934
+2026-02-27 07:49:35  DEBUG       Level 13.5: using GM CPM 0.6811649
+2026-02-27 07:49:35  DEBUG       Level 14.0: using GM CPM 0.69414365
+2026-02-27 07:49:35  DEBUG       Level 14.5: using GM CPM 0.7068842
+2026-02-27 07:49:35  DEBUG       Level 15.0: using GM CPM 0.7193991
+2026-02-27 07:49:35  DEBUG       Level 15.5: using GM CPM 0.7317
+2026-02-27 07:49:35  DEBUG       Level 16.0: using GM CPM 0.7377695
+2026-02-27 07:49:35  DEBUG       Level 16.5: using GM CPM 0.74378943
+2026-02-27 07:49:35  DEBUG       Level 17.0: using GM CPM 0.74976104
+2026-02-27 07:49:35  DEBUG       Level 17.5: using GM CPM 0.7556855
+2026-02-27 07:49:35  DEBUG       Level 18.0: using GM CPM 0.76156384
+2026-02-27 07:49:35  DEBUG       Level 18.5: using GM CPM 0.76739717
+2026-02-27 07:49:35  DEBUG       Level 19.0: using GM CPM 0.7731865
+2026-02-27 07:49:35  DEBUG       Level 19.5: using GM CPM 0.77893275
+2026-02-27 07:49:35  DEBUG       Level 20.0: using GM CPM 0.784637
+2026-02-27 07:49:35  DEBUG       Level 20.5: using GM CPM 0.7903
+2026-02-27 07:49:35  DEBUG       Level 21.0: using GM CPM 0.7953
+2026-02-27 07:49:35  DEBUG       Level 21.5: using GM CPM 0.8003
+2026-02-27 07:49:35  DEBUG       Level 22.0: using GM CPM 0.8053
+2026-02-27 07:49:35  DEBUG       Level 22.5: using GM CPM 0.8103
+2026-02-27 07:49:35  DEBUG       Level 23.0: using GM CPM 0.8153
+2026-02-27 07:49:35  DEBUG       Level 23.5: using GM CPM 0.8203
+2026-02-27 07:49:35  DEBUG       Level 24.0: using GM CPM 0.8253
+2026-02-27 07:49:35  DEBUG       Level 24.5: using GM CPM 0.8303
+2026-02-27 07:49:35  DEBUG       Level 25.0: using GM CPM 0.8353
+2026-02-27 07:49:35  DEBUG       Level 25.5: using GM CPM 0.8403
+2026-02-27 07:49:35  DEBUG       Level 26.0: using GM CPM 0.8453
+2026-02-27 07:49:35  DEBUG       Level 26.5: using GM CPM 0.8503
+2026-02-27 07:49:35  DEBUG       Level 27.0: using GM CPM 0.8553
+2026-02-27 07:49:35  DEBUG       Level 27.5: using GM CPM 0.8603
+2026-02-27 07:49:35  DEBUG       Level 28.0: using known CPM 0.70688421 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 28.5: using known CPM 0.713164996 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 29.0: using known CPM 0.71939909 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 29.5: using known CPM 0.725571552 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 30.0: using known CPM 0.7317 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 30.5: using known CPM 0.734741009 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 31.0: using known CPM 0.73776948 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 31.5: using known CPM 0.740785574 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 32.0: using known CPM 0.74378943 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 32.5: using known CPM 0.746781211 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 33.0: using known CPM 0.74976104 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 33.5: using known CPM 0.752729087 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 34.0: using known CPM 0.75568551 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 34.5: using known CPM 0.758630378 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 35.0: using known CPM 0.76156384 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 35.5: using known CPM 0.764486065 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 36.0: using known CPM 0.76739717 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 36.5: using known CPM 0.770297266 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 37.0: using known CPM 0.7731865 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 37.5: using known CPM 0.776064962 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 38.0: using known CPM 0.77893275 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 38.5: using known CPM 0.781790055 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 39.0: using known CPM 0.784637 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 39.5: using known CPM 0.787473578 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 40.0: using known CPM 0.79030001 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 40.5: using known CPM 0.792803968 (GM obfuscated)
+2026-02-27 07:49:35  DEBUG       Level 41.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 41.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 42.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 42.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 43.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 43.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 44.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 44.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 45.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 45.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 46.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 46.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 47.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 47.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 48.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 48.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 49.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 49.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 50.0: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 50.5: added from known table (beyond GM)
+2026-02-27 07:49:35  DEBUG       Level 51.0: added from known table (beyond GM)
+2026-02-27 07:49:35  INFO        ✔ Max level: 51.0 (101 total entries)
+2026-02-27 07:49:35  INFO      
+🔴 Truncating pogo_cpm...
+2026-02-27 07:49:35  INFO        🗑 Truncated pogo_cpm
+2026-02-27 07:49:35  INFO      
+📥 Upserting 101 CPM values...
+2026-02-27 07:49:35  INFO        ✔ 101 CPM values upserted (level 1.0–51.0)
+2026-02-27 07:49:35  INFO      
+📋 Storing GameMaster metadata...
+2026-02-27 07:49:35  INFO        ✔ GameMaster hash stored: c80c989a78b5b58b...1fed0755792f26e5
+2026-02-27 07:49:35  INFO      
+✅ All done! CPM data committed.
+2026-02-27 08:01:34  INFO      ============================================================
+2026-02-27 08:01:34  INFO        GameMaster CPM → db_pogo_manager Seeder
+2026-02-27 08:01:34  INFO        Mode: update | DB: db_pogo_manager@localhost:5432
+2026-02-27 08:01:34  INFO        Log file: logs/seed_cpm.log
+2026-02-27 08:01:34  INFO      ============================================================
+2026-02-27 08:01:34  INFO      
+📋 Fetching GameMaster...
+2026-02-27 08:01:34  INFO        ↓ https://raw.githubusercontent.com/PokeMiners/game_masters/master/latest/latest.json
+2026-02-27 08:01:35  DEBUG     CACHED     https://raw.githubusercontent.com/PokeMiners/game_masters/master/latest/latest.json
+2026-02-27 08:01:35  INFO      
+🔢 Extracting CPM values...
+2026-02-27 08:01:35  INFO        ℹ Found 80 CPM values in GameMaster
+2026-02-27 08:01:35  WARNING     ⚠ Obfuscation detected starting at level 28.0 (CPM=0.8653)
+2026-02-27 08:01:35  DEBUG       Level 1.0: using GM CPM 0.094
+2026-02-27 08:01:35  DEBUG       Level 1.5: using GM CPM 0.16639787
+2026-02-27 08:01:35  DEBUG       Level 2.0: using GM CPM 0.21573247
+2026-02-27 08:01:35  DEBUG       Level 2.5: using GM CPM 0.25572005
+2026-02-27 08:01:35  DEBUG       Level 3.0: using GM CPM 0.29024988
+2026-02-27 08:01:35  DEBUG       Level 3.5: using GM CPM 0.3210876
+2026-02-27 08:01:35  DEBUG       Level 4.0: using GM CPM 0.34921268
+2026-02-27 08:01:35  DEBUG       Level 4.5: using GM CPM 0.3752356
+2026-02-27 08:01:35  DEBUG       Level 5.0: using GM CPM 0.39956728
+2026-02-27 08:01:35  DEBUG       Level 5.5: using GM CPM 0.4225
+2026-02-27 08:01:35  DEBUG       Level 6.0: using GM CPM 0.44310755
+2026-02-27 08:01:35  DEBUG       Level 6.5: using GM CPM 0.4627984
+2026-02-27 08:01:35  DEBUG       Level 7.0: using GM CPM 0.48168495
+2026-02-27 08:01:35  DEBUG       Level 7.5: using GM CPM 0.49985844
+2026-02-27 08:01:35  DEBUG       Level 8.0: using GM CPM 0.51739395
+2026-02-27 08:01:35  DEBUG       Level 8.5: using GM CPM 0.5343543
+2026-02-27 08:01:35  DEBUG       Level 9.0: using GM CPM 0.5507927
+2026-02-27 08:01:35  DEBUG       Level 9.5: using GM CPM 0.5667545
+2026-02-27 08:01:35  DEBUG       Level 10.0: using GM CPM 0.5822789
+2026-02-27 08:01:35  DEBUG       Level 10.5: using GM CPM 0.5974
+2026-02-27 08:01:35  DEBUG       Level 11.0: using GM CPM 0.6121573
+2026-02-27 08:01:35  DEBUG       Level 11.5: using GM CPM 0.6265671
+2026-02-27 08:01:35  DEBUG       Level 12.0: using GM CPM 0.64065295
+2026-02-27 08:01:35  DEBUG       Level 12.5: using GM CPM 0.65443563
+2026-02-27 08:01:35  DEBUG       Level 13.0: using GM CPM 0.667934
+2026-02-27 08:01:35  DEBUG       Level 13.5: using GM CPM 0.6811649
+2026-02-27 08:01:35  DEBUG       Level 14.0: using GM CPM 0.69414365
+2026-02-27 08:01:35  DEBUG       Level 14.5: using GM CPM 0.7068842
+2026-02-27 08:01:35  DEBUG       Level 15.0: using GM CPM 0.7193991
+2026-02-27 08:01:35  DEBUG       Level 15.5: using GM CPM 0.7317
+2026-02-27 08:01:35  DEBUG       Level 16.0: using GM CPM 0.7377695
+2026-02-27 08:01:35  DEBUG       Level 16.5: using GM CPM 0.74378943
+2026-02-27 08:01:35  DEBUG       Level 17.0: using GM CPM 0.74976104
+2026-02-27 08:01:35  DEBUG       Level 17.5: using GM CPM 0.7556855
+2026-02-27 08:01:35  DEBUG       Level 18.0: using GM CPM 0.76156384
+2026-02-27 08:01:35  DEBUG       Level 18.5: using GM CPM 0.76739717
+2026-02-27 08:01:35  DEBUG       Level 19.0: using GM CPM 0.7731865
+2026-02-27 08:01:35  DEBUG       Level 19.5: using GM CPM 0.77893275
+2026-02-27 08:01:35  DEBUG       Level 20.0: using GM CPM 0.784637
+2026-02-27 08:01:35  DEBUG       Level 20.5: using GM CPM 0.7903
+2026-02-27 08:01:35  DEBUG       Level 21.0: using GM CPM 0.7953
+2026-02-27 08:01:35  DEBUG       Level 21.5: using GM CPM 0.8003
+2026-02-27 08:01:35  DEBUG       Level 22.0: using GM CPM 0.8053
+2026-02-27 08:01:35  DEBUG       Level 22.5: using GM CPM 0.8103
+2026-02-27 08:01:35  DEBUG       Level 23.0: using GM CPM 0.8153
+2026-02-27 08:01:35  DEBUG       Level 23.5: using GM CPM 0.8203
+2026-02-27 08:01:35  DEBUG       Level 24.0: using GM CPM 0.8253
+2026-02-27 08:01:35  DEBUG       Level 24.5: using GM CPM 0.8303
+2026-02-27 08:01:35  DEBUG       Level 25.0: using GM CPM 0.8353
+2026-02-27 08:01:35  DEBUG       Level 25.5: using GM CPM 0.8403
+2026-02-27 08:01:35  DEBUG       Level 26.0: using GM CPM 0.8453
+2026-02-27 08:01:35  DEBUG       Level 26.5: using GM CPM 0.8503
+2026-02-27 08:01:35  DEBUG       Level 27.0: using GM CPM 0.8553
+2026-02-27 08:01:35  DEBUG       Level 27.5: using GM CPM 0.8603
+2026-02-27 08:01:35  DEBUG       Level 28.0: using known CPM 0.70688421 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 28.5: using known CPM 0.713164996 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 29.0: using known CPM 0.71939909 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 29.5: using known CPM 0.725571552 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 30.0: using known CPM 0.7317 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 30.5: using known CPM 0.734741009 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 31.0: using known CPM 0.73776948 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 31.5: using known CPM 0.740785574 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 32.0: using known CPM 0.74378943 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 32.5: using known CPM 0.746781211 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 33.0: using known CPM 0.74976104 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 33.5: using known CPM 0.752729087 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 34.0: using known CPM 0.75568551 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 34.5: using known CPM 0.758630378 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 35.0: using known CPM 0.76156384 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 35.5: using known CPM 0.764486065 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 36.0: using known CPM 0.76739717 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 36.5: using known CPM 0.770297266 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 37.0: using known CPM 0.7731865 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 37.5: using known CPM 0.776064962 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 38.0: using known CPM 0.77893275 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 38.5: using known CPM 0.781790055 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 39.0: using known CPM 0.784637 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 39.5: using known CPM 0.787473578 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 40.0: using known CPM 0.79030001 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 40.5: using known CPM 0.792803968 (GM obfuscated)
+2026-02-27 08:01:35  DEBUG       Level 41.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 41.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 42.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 42.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 43.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 43.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 44.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 44.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 45.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 45.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 46.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 46.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 47.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 47.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 48.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 48.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 49.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 49.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 50.0: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 50.5: added from known table (beyond GM)
+2026-02-27 08:01:35  DEBUG       Level 51.0: added from known table (beyond GM)
+2026-02-27 08:01:35  INFO        ✔ Max level: 51.0 (101 total entries)
+2026-02-27 08:01:35  INFO      
+📥 Upserting 101 CPM values...
+2026-02-27 08:01:35  INFO        ✔ 101 CPM values upserted (level 1.0–51.0)
+2026-02-27 08:01:35  INFO      
+📋 Storing GameMaster metadata...
+2026-02-27 08:01:35  INFO        ✔ GameMaster hash stored: c80c989a78b5b58b...1fed0755792f26e5
+2026-02-27 08:01:35  INFO      
+✅ All done! Data committed.
+2026-02-27 08:06:37  INFO      ============================================================
+2026-02-27 08:06:37  INFO        GameMaster CPM → db_pogo_manager Seeder
+2026-02-27 08:06:37  INFO        Mode: dry-run | DB: db_pogo_manager@localhost:5432
+2026-02-27 08:06:37  INFO        Log file: logs/seed_cpm.log
+2026-02-27 08:06:37  INFO      ============================================================
+2026-02-27 08:06:37  INFO      
+📋 Fetching GameMaster...
+2026-02-27 08:06:37  INFO        ↓ https://raw.githubusercontent.com/PokeMiners/game_masters/master/latest/latest.json
+2026-02-27 08:06:37  DEBUG     CACHED     https://raw.githubusercontent.com/PokeMiners/game_masters/master/latest/latest.json
+2026-02-27 08:06:38  INFO      
+🔢 Extracting CPM values...
+2026-02-27 08:06:38  INFO        ℹ Found 80 CPM values in GameMaster
+2026-02-27 08:06:38  WARNING     ⚠ Obfuscation detected starting at level 28.0 (CPM=0.8653)
+2026-02-27 08:06:38  DEBUG       Level 1.0: using GM CPM 0.094
+2026-02-27 08:06:38  DEBUG       Level 1.5: using GM CPM 0.16639787
+2026-02-27 08:06:38  DEBUG       Level 2.0: using GM CPM 0.21573247
+2026-02-27 08:06:38  DEBUG       Level 2.5: using GM CPM 0.25572005
+2026-02-27 08:06:38  DEBUG       Level 3.0: using GM CPM 0.29024988
+2026-02-27 08:06:38  DEBUG       Level 3.5: using GM CPM 0.3210876
+2026-02-27 08:06:38  DEBUG       Level 4.0: using GM CPM 0.34921268
+2026-02-27 08:06:38  DEBUG       Level 4.5: using GM CPM 0.3752356
+2026-02-27 08:06:38  DEBUG       Level 5.0: using GM CPM 0.39956728
+2026-02-27 08:06:38  DEBUG       Level 5.5: using GM CPM 0.4225
+2026-02-27 08:06:38  DEBUG       Level 6.0: using GM CPM 0.44310755
+2026-02-27 08:06:38  DEBUG       Level 6.5: using GM CPM 0.4627984
+2026-02-27 08:06:38  DEBUG       Level 7.0: using GM CPM 0.48168495
+2026-02-27 08:06:38  DEBUG       Level 7.5: using GM CPM 0.49985844
+2026-02-27 08:06:38  DEBUG       Level 8.0: using GM CPM 0.51739395
+2026-02-27 08:06:38  DEBUG       Level 8.5: using GM CPM 0.5343543
+2026-02-27 08:06:38  DEBUG       Level 9.0: using GM CPM 0.5507927
+2026-02-27 08:06:38  DEBUG       Level 9.5: using GM CPM 0.5667545
+2026-02-27 08:06:38  DEBUG       Level 10.0: using GM CPM 0.5822789
+2026-02-27 08:06:38  DEBUG       Level 10.5: using GM CPM 0.5974
+2026-02-27 08:06:38  DEBUG       Level 11.0: using GM CPM 0.6121573
+2026-02-27 08:06:38  DEBUG       Level 11.5: using GM CPM 0.6265671
+2026-02-27 08:06:38  DEBUG       Level 12.0: using GM CPM 0.64065295
+2026-02-27 08:06:38  DEBUG       Level 12.5: using GM CPM 0.65443563
+2026-02-27 08:06:38  DEBUG       Level 13.0: using GM CPM 0.667934
+2026-02-27 08:06:38  DEBUG       Level 13.5: using GM CPM 0.6811649
+2026-02-27 08:06:38  DEBUG       Level 14.0: using GM CPM 0.69414365
+2026-02-27 08:06:38  DEBUG       Level 14.5: using GM CPM 0.7068842
+2026-02-27 08:06:38  DEBUG       Level 15.0: using GM CPM 0.7193991
+2026-02-27 08:06:38  DEBUG       Level 15.5: using GM CPM 0.7317
+2026-02-27 08:06:38  DEBUG       Level 16.0: using GM CPM 0.7377695
+2026-02-27 08:06:38  DEBUG       Level 16.5: using GM CPM 0.74378943
+2026-02-27 08:06:38  DEBUG       Level 17.0: using GM CPM 0.74976104
+2026-02-27 08:06:38  DEBUG       Level 17.5: using GM CPM 0.7556855
+2026-02-27 08:06:38  DEBUG       Level 18.0: using GM CPM 0.76156384
+2026-02-27 08:06:38  DEBUG       Level 18.5: using GM CPM 0.76739717
+2026-02-27 08:06:38  DEBUG       Level 19.0: using GM CPM 0.7731865
+2026-02-27 08:06:38  DEBUG       Level 19.5: using GM CPM 0.77893275
+2026-02-27 08:06:38  DEBUG       Level 20.0: using GM CPM 0.784637
+2026-02-27 08:06:38  DEBUG       Level 20.5: using GM CPM 0.7903
+2026-02-27 08:06:38  DEBUG       Level 21.0: using GM CPM 0.7953
+2026-02-27 08:06:38  DEBUG       Level 21.5: using GM CPM 0.8003
+2026-02-27 08:06:38  DEBUG       Level 22.0: using GM CPM 0.8053
+2026-02-27 08:06:38  DEBUG       Level 22.5: using GM CPM 0.8103
+2026-02-27 08:06:38  DEBUG       Level 23.0: using GM CPM 0.8153
+2026-02-27 08:06:38  DEBUG       Level 23.5: using GM CPM 0.8203
+2026-02-27 08:06:38  DEBUG       Level 24.0: using GM CPM 0.8253
+2026-02-27 08:06:38  DEBUG       Level 24.5: using GM CPM 0.8303
+2026-02-27 08:06:38  DEBUG       Level 25.0: using GM CPM 0.8353
+2026-02-27 08:06:38  DEBUG       Level 25.5: using GM CPM 0.8403
+2026-02-27 08:06:38  DEBUG       Level 26.0: using GM CPM 0.8453
+2026-02-27 08:06:38  DEBUG       Level 26.5: using GM CPM 0.8503
+2026-02-27 08:06:38  DEBUG       Level 27.0: using GM CPM 0.8553
+2026-02-27 08:06:38  DEBUG       Level 27.5: using GM CPM 0.8603
+2026-02-27 08:06:38  DEBUG       Level 28.0: using known CPM 0.70688421 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 28.5: using known CPM 0.713164996 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 29.0: using known CPM 0.71939909 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 29.5: using known CPM 0.725571552 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 30.0: using known CPM 0.7317 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 30.5: using known CPM 0.734741009 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 31.0: using known CPM 0.73776948 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 31.5: using known CPM 0.740785574 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 32.0: using known CPM 0.74378943 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 32.5: using known CPM 0.746781211 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 33.0: using known CPM 0.74976104 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 33.5: using known CPM 0.752729087 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 34.0: using known CPM 0.75568551 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 34.5: using known CPM 0.758630378 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 35.0: using known CPM 0.76156384 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 35.5: using known CPM 0.764486065 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 36.0: using known CPM 0.76739717 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 36.5: using known CPM 0.770297266 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 37.0: using known CPM 0.7731865 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 37.5: using known CPM 0.776064962 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 38.0: using known CPM 0.77893275 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 38.5: using known CPM 0.781790055 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 39.0: using known CPM 0.784637 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 39.5: using known CPM 0.787473578 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 40.0: using known CPM 0.79030001 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 40.5: using known CPM 0.792803968 (GM obfuscated)
+2026-02-27 08:06:38  DEBUG       Level 41.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 41.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 42.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 42.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 43.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 43.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 44.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 44.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 45.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 45.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 46.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 46.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 47.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 47.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 48.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 48.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 49.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 49.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 50.0: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 50.5: added from known table (beyond GM)
+2026-02-27 08:06:38  DEBUG       Level 51.0: added from known table (beyond GM)
+2026-02-27 08:06:38  INFO        ✔ Max level: 51.0 (101 total entries)
+2026-02-27 08:06:38  INFO      
+📋 Dry-run preview:
+2026-02-27 08:06:38  INFO        CPM in DB: 101
+2026-02-27 08:06:38  INFO        CPM from GM: 101 (level 1.0–51.0)
+2026-02-27 08:06:38  INFO      
+  (no data will be written)

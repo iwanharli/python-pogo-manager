@@ -1,0 +1,7 @@
+# python-pogo-seeder
+
+__pycache__/
+*.pyc
+.env
+cache/
+venv/
