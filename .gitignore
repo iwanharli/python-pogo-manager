@@ -5,3 +5,6 @@ __pycache__/
 .env
 cache/
 venv/
+
+# hasil build / log / media besar: jangan di-commit
+logs/
