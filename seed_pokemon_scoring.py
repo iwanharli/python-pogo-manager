@@ -10,13 +10,13 @@ from lib.log import setup_logger
 
 log = setup_logger("pokemon-scoring", "seed_pokemon_scoring.log")
 
-# Unified Score Weights
-WEIGHT_MOVESET = 0.65
-WEIGHT_STATS = 0.35
-
-# Tempo blending weights (PvP only)
-W_CORE = 0.70
-W_TEMPO = 0.30
+# ── Fallback defaults (used if pogo_formula table is empty) ───
+_FALLBACK_WEIGHTS = {
+    "w_moveset": 0.65,
+    "w_stats": 0.35,
+    "w_core": 0.70,
+    "w_tempo": 0.30,
+}
 
 # League Caps for IV Rank approximations
 CAP_GREAT = 1500
@@ -26,7 +26,30 @@ CAP_ULTRA = 2500
 SHADOW_ATK_MULT = 1.2
 SHADOW_DEF_MULT = 0.8
 
-DEFAULT_PKMN_PROFILES = [
+
+def load_formula_weights(cur):
+    """Load scoring weights from pogo_formula table, fallback to hardcoded defaults."""
+    weights = dict(_FALLBACK_WEIGHTS)
+
+    cur.execute("""
+        SELECT name, defaults FROM pogo_formula
+        WHERE kind = 'scoring' AND scope = 'pokemon' AND is_active = TRUE
+        ORDER BY name
+    """)
+    for name, defaults in cur.fetchall():
+        if defaults and isinstance(defaults, dict):
+            weights.update(defaults)
+            log.info(f"  📐 Loaded formula '{name}': {defaults}")
+
+    log.info(f"  📐 Final weights: w_moveset={weights['w_moveset']}, w_stats={weights['w_stats']}, "
+             f"w_core={weights['w_core']}, w_tempo={weights['w_tempo']}")
+    return weights
+
+def build_default_profiles(weights):
+    """Build profile list using weights from formula table."""
+    WEIGHT_MOVESET = weights["w_moveset"]
+    WEIGHT_STATS = weights["w_stats"]
+    return [
     {
         "name": "pokemon_v1",
         "context": "pve_raid",
@@ -71,9 +94,10 @@ DEFAULT_PKMN_PROFILES = [
     }
 ]
 
-def init_pokemon_profiles(cur):
+def init_pokemon_profiles(cur, formula_weights):
     log.info("🛠 Initializing pokemon scoring profiles...")
-    for p in DEFAULT_PKMN_PROFILES:
+    profiles = build_default_profiles(formula_weights)
+    for p in profiles:
         cur.execute("""
             INSERT INTO pogo_scoring_pokemon_profile (name, context, version, weights, notes, is_active)
             VALUES (%s, %s, %s, %s, %s, %s)
@@ -261,7 +285,7 @@ def compute_tempo(fast_combat, c1_combat, c2_combat, c1_metrics, c2_metrics):
     return tempo_raw, breakdown
 
 
-def build_moveset_recommendations(cur, profiles_map):
+def build_moveset_recommendations(cur, profiles_map, w_core=0.70, w_tempo=0.30):
     """
     Evaluate all Fast + Charged move combos for each Pokemon.
     Save top moveset into `pogo_scoring_moveset`.
@@ -346,7 +370,7 @@ def build_moveset_recommendations(cur, profiles_map):
                         cc1 = move_combat.get(c_id, {})
                         c1m = move_scores['pvp_charged'].get(c_id, {}).get("metrics")
                         t_raw, t_bd = compute_tempo(fc, cc1, None, c1m, None)
-                        blended_raw = W_CORE * core_raw + W_TEMPO * t_raw
+                        blended_raw = w_core * core_raw + w_tempo * t_raw
                         metrics = {
                             "fast_score": move_scores['pvp_fast'].get(f_id,{}).get("score",0),
                             "charged1_score": move_scores['pvp_charged'].get(c_id,{}).get("score",0),
@@ -364,7 +388,7 @@ def build_moveset_recommendations(cur, profiles_map):
                             c1m = move_scores['pvp_charged'].get(c1_id, {}).get("metrics")
                             c2m = move_scores['pvp_charged'].get(c2_id, {}).get("metrics")
                             t_raw, t_bd = compute_tempo(fc, cc1, cc2, c1m, c2m)
-                            blended_raw = W_CORE * core_raw + W_TEMPO * t_raw
+                            blended_raw = w_core * core_raw + w_tempo * t_raw
                             metrics = {
                                 "fast_score": move_scores['pvp_fast'].get(f_id,{}).get("score",0),
                                 "charged1_score": move_scores['pvp_charged'].get(c1_id,{}).get("score",0),
@@ -481,7 +505,12 @@ def calculate_pokemon_scores(pokemon, max_stats, best_moves, prof_ctx, prof_weig
 
 def run_scoring():
     with safe_transaction() as (conn, cur):
-        profiles_map = init_pokemon_profiles(cur)
+        # Load weights from pogo_formula (or fallback to hardcoded defaults)
+        formula_weights = load_formula_weights(cur)
+        w_core = formula_weights["w_core"]
+        w_tempo = formula_weights["w_tempo"]
+
+        profiles_map = init_pokemon_profiles(cur, formula_weights)
         
         log.info("📊 Fetching Max Bounds for Stat Normalization...")
         max_stats = get_max_stats(cur)
@@ -492,7 +521,7 @@ def run_scoring():
         }
         cpm_map = get_cpm_map(cur)
         
-        best_moves = build_moveset_recommendations(cur, profiles_map)
+        best_moves = build_moveset_recommendations(cur, profiles_map, w_core, w_tempo)
 
         log.info("🧬 Fetching Pokémon Base Stats...")
         cur.execute("SELECT id, stats FROM pogo_pokemon")

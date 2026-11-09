@@ -50,3 +50,15 @@
 2026-03-01 07:27:26  INFO      ✨ Normalizing pvp_fast: min=0.0000, max=4.0000
 2026-03-01 07:27:26  INFO      ✨ Normalizing pvp_charged: min=0.2820, max=2.1378
 2026-03-01 07:27:26  INFO      🏁 Refined move scoring complete!
+2026-03-08 06:24:36  INFO      🛠 Initializing scoring profiles...
+2026-03-08 06:24:36  INFO        📐 Loaded formula 'move_pve_fast_v1': {'w_dps': 0.65, 'w_eps': 0.35}
+2026-03-08 06:24:36  INFO        📐 Loaded formula 'move_pve_charged_v1': {'w_dpe': 0.75, 'w_dps': 0.25}
+2026-03-08 06:24:36  INFO        📐 Loaded formula 'move_pvp_fast_v1': {'w_dpt': 0.4, 'w_ept': 0.6}
+2026-03-08 06:24:36  INFO        📐 Loaded formula 'move_pvp_charged_v1': {'w_dpe': 0.8, 'w_cost': 0.2}
+2026-03-08 06:24:36  INFO      🔍 Classifying moves and fetching usage data...
+2026-03-08 06:24:36  INFO      📊 Calculating scores for 281 moves...
+2026-03-08 06:24:36  INFO      ✨ Normalizing pve_fast: min=0.0000, max=12.1000
+2026-03-08 06:24:36  INFO      ✨ Normalizing pve_charged: min=0.0000, max=37.4458
+2026-03-08 06:24:36  INFO      ✨ Normalizing pvp_fast: min=0.0000, max=4.0000
+2026-03-08 06:24:36  INFO      ✨ Normalizing pvp_charged: min=0.2820, max=2.1378
+2026-03-08 06:24:36  INFO      🏁 Refined move scoring complete!

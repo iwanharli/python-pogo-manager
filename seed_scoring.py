@@ -44,8 +44,36 @@ DEFAULT_PROFILES = [
 def init_profiles(cur):
     """Upsert default profiles and return full profile data from DB."""
     log.info("🛠 Initializing scoring profiles...")
-    
+
+    # Try to load formula defaults from pogo_formula (if table exists)
+    formula_defaults = {}
+    try:
+        cur.execute("""
+            SELECT name, defaults FROM pogo_formula
+            WHERE kind = 'scoring' AND scope = 'move' AND is_active = TRUE
+        """)
+        for fname, defaults in cur.fetchall():
+            if defaults and isinstance(defaults, dict):
+                formula_defaults[fname] = defaults
+                log.info(f"  📐 Loaded formula '{fname}': {defaults}")
+    except Exception:
+        log.info("  ℹ pogo_formula table not available — using hardcoded defaults")
+
+    # Map formula name → profile context for weight merging
+    formula_to_context = {
+        "move_pve_fast_v1": "pve_fast",
+        "move_pve_charged_v1": "pve_charged",
+        "move_pvp_fast_v1": "pvp_fast",
+        "move_pvp_charged_v1": "pvp_charged",
+    }
+
     for p in DEFAULT_PROFILES:
+        # Override weights from formula if available
+        weights = dict(p["weights"])
+        for fname, ctx in formula_to_context.items():
+            if ctx == p["context"] and fname in formula_defaults:
+                weights.update(formula_defaults[fname])
+
         cur.execute("""
             INSERT INTO pogo_scoring_profile (name, context, version, weights, notes, is_active)
             VALUES (%s, %s, %s, %s, %s, %s)
@@ -53,7 +81,7 @@ def init_profiles(cur):
                 weights = EXCLUDED.weights,
                 is_active = EXCLUDED.is_active,
                 updated_at = now()
-        """, (p["name"], p["context"], p["version"], Json(p["weights"]), p["notes"], True))
+        """, (p["name"], p["context"], p["version"], Json(weights), p["notes"], True))
         
     # Always fetch back from DB to be the source of truth
     cur.execute("SELECT id, context, weights FROM pogo_scoring_profile WHERE is_active = true")
